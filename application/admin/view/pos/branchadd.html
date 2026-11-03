@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加门店仓库</title>
+    <link rel="stylesheet" href="__PEAR__/component/pear/css/pear.css" />
+</head>
+<body>
+<style type="text/css">
+	.uploader-list {
+		margin-left: -15px;
+		text-align: center;
+	}
+
+	.uploader-list .info {
+		position: relative;
+		margin: -25px auto 0 auto;
+		background-color: black;
+		color: white;
+		filter: alpha(Opacity=80);
+		-moz-opacity: 0.5;
+		opacity: 0.5;
+		width: 120px;
+		height: 25px;
+		text-align: center;
+		display: none;
+	}
+
+	.uploader-list .handle {
+		position: relative;
+		background-color: black;
+		color: white;
+		filter: alpha(Opacity=80);
+		-moz-opacity: 0.5;
+		opacity: 0.5;
+		width: 120px;
+		text-align: right;
+		height: 18px;
+		margin: 0 auto -18px auto;
+		display: none;
+		z-index:1000;
+	}
+
+	.uploader-list .handle i {
+		margin-right: 5px;
+	}
+
+	.uploader-list .handle i:hover {
+		cursor: pointer;
+	}
+
+	.uploader-list .file-iteme {
+		margin: 12px 0 0 0;
+		padding: 1px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.uploader-list .default-icon {
+		position: absolute;
+		width: 120px;
+		text-align: center;
+		height: 30px;
+		display:none;
+	}
+	.uploader-list .default-icon i{
+		font-size: 50px;
+		color: #5ff55f;
+	}
+</style>
+<form class="layui-form" action="">
+    <div class="mainBox">
+        <div class="main-container">
+            <div class="main-container">
+            		<div class="layui-form-item">
+				  	<div class="layui-card-header">基本资料</div>
+				  	</div>
+                  <div class="layui-form-item">
+				    <label class="layui-form-label">门店编码</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="branch_no" value="{$one['branch_no']}" required  lay-verify="required" placeholder="请输入唯一编码" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">门店名称</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="branch_name"  value="{$one['branch_name']}" required  lay-verify="required" placeholder="请输入门店名称" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">门店类型</label>
+				    <div class="layui-input-inline">
+				      <select name="trade_type" lay-verify="required" lay-search>
+				        <option value=""></option>
+				        	<option value="1" {if condition="$one['trade_type'] eq 1"}selected="selected"{/if}>仓库</option>
+				        	<option value="2" {if condition="$one['trade_type'] eq 2"}selected="selected"{/if}>加盟店</option>
+				       		<option value="3" {if condition="$one['trade_type'] eq 3"}selected="selected"{/if}>总部</option>
+				      </select>
+				    </div>
+				    
+				     <label class="layui-form-label">授权码</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="authorcode" value="{$one['authorcode']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">联系人</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="branch_man" value="{$one['branch_man']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">电话</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="branch_tel" value="{$one['branch_tel']}"  placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">微信</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="wechat" value="{$one['wechat']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">上级经销商</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="upername" value="{$one['upername']}"  placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">传真</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="branch_fax" value="{$one['branch_fax']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">电子邮件</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="branch_email" value="{$one['branch_email']}"  placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">营业面积</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="branch_mj" value="{$one['branch_mj']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">配送价格</label>
+				    <div class="layui-input-inline">
+				      <select name="price_type" lay-search>
+				        <option value=""></option>
+				        <option value="1" {if condition="$one['price_type'] eq 1"}selected="selected"{/if}>进货价</option>
+						<option value="2" {if condition="$one['price_type'] eq 2"}selected="selected"{/if}>成本价</option>
+						<option value="3" {if condition="$one['price_type'] eq 3"}selected="selected"{/if}>批发价</option>
+						<option value="4" {if condition="$one['price_type'] eq 4"}selected="selected"{/if}>配送价</option>
+				      </select>
+				    </div>
+				  </div>
+				  
+				   <div class="layui-form-item">
+				    <label class="layui-form-label">经度</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="lon" value="{$one['lon']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">纬度</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="lat" value="{$one['lat']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">地址</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="address" value="{$one['address']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">备注</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="other1" value="{$one['other1']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">开启积分</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" name="use_credit" value="1" title="开启" lay-skin="primary" {if condition="$one['use_credit'] eq '1'"} checked {/if} >
+						<div class="layui-inline layui-word-aux">
+							会员可使用积分兑换现金
+						</div>
+					</div>
+
+					<label class="layui-form-label">兑换关系</label>
+					<div class="layui-input-inline">
+						<input type="text" name="credit_money" value="{$one['credit_money']}" placeholder="" autocomplete="off" class="layui-input">
+						<div class="layui-inline layui-word-aux">
+							填写整数,多少积分兑换1元
+						</div>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">门店LOGO</label>
+					<label class="layui-form-label layui-word-aux" style="width: 200px;text-align: left">
+						请上传250*250大小内的图片
+					</label>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label"></label>
+					<div class="layui-col-md12">
+
+						<div class="layui-input-inline uploader-list">
+							<button type="button" class="layui-btn layui-btn-danger" id="logoloader">
+								<i class="layui-icon"></i>上传图片
+							</button>
+
+							<div id="shoplogo" class="file-iteme" {if condition="$one['logo'] eq ''"}style="display:none;"{/if}>
+							<div class="handle"><i class="layui-icon layui-icon-delete" id="logodel"></i></div>
+							<img src="{$one['logo']}" width="120" height="auto" id="preview_logo"/>
+							<div class="info"></div>
+						</div>
+
+						<div class="layui-inline layui-word-aux">
+							图片大小限制 {php}echo $image_size/1024; {/php}M
+						</div>
+					</div>
+				</div>
+			</div>
+				  
+				  <div class="layui-form-item">
+				  <div class="layui-card-header">微信商户配置</div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">APPID</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="wechat_appid" value="{$one['wechat_appid']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">APPSECRET</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="wechat_secret" value="{$one['wechat_secret']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">商家号</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="wechat_merchantid" value="{$one['wechat_merchantid']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				    
+				     <label class="layui-form-label">支付秘钥</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="wechat_paykey" value="{$one['wechat_paykey']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label" >扫码收款</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" name="use_wechatpay" value="1" title="开启微信扫码收款" lay-skin="primary" {if condition="$one['use_wechatpay'] eq '1'"} checked {/if} >
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 130px;">微信个人收款二维码</label>
+					<label class="layui-form-label" style="width: 350px;color:#ff6a08;">
+						没有申请微信商家，在移动端使用个人收款二维码收款
+					</label>
+				</div>
+
+				<div class="layui-form-item">
+						<label class="layui-form-label"></label>
+						<div class="layui-col-md12">
+
+							<div class="layui-input-inline uploader-list">
+								<button type="button" class="layui-btn layui-btn-danger" id="wechatloader">
+									<i class="layui-icon"></i>上传图片
+								</button>
+
+								<div id="wechatpaycode" class="file-iteme" {if condition="$one['wechat_pay_qrcode'] eq ''"}style="display:none;"{/if}>
+								<div class="handle"><i class="layui-icon layui-icon-delete" id="wechatdel"></i></div>
+								<img src="{$one['wechat_pay_qrcode']}" width="120" height="auto" id="preview_wechat"/>
+								<div class="info"></div>
+							</div>
+
+							<div class="layui-inline layui-word-aux">
+								图片大小限制 {php}echo $image_size/1024; {/php}M
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 130px;">微信商户API证书</label>
+					<label class="layui-form-label" style="width: 380px;color:#ff6a08;">
+						退款接口用到的apiclient_cert.pem 和 apiclient_key.pem 证书
+					</label>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label"></label>
+					<div class="layui-col-md12">
+
+						<div class="layui-input-inline uploader-list">
+								<button type="button" class="layui-btn layui-btn-danger" id="wechatcertloader">
+									<i class="layui-icon"></i>apiclient_cert.pem
+								</button>
+
+								<div id="wechatcert" class="file-iteme" {if condition="$one['wechat_apiclient_cert'] eq ''"}style="display:none;"{/if}>
+									<div class="handle"><i class="layui-icon layui-icon-delete" id="wechatcertdel"></i></div>
+									<img src="__STATIC__/images/admin/cert.png" width="120" height="auto" />
+									<div class="info"></div>
+								</div>
+
+						</div>
+
+
+						<div class="layui-input-inline uploader-list" style="margin-left:60px;">
+							<button type="button" class="layui-btn layui-btn-danger" id="wechatkeyloader">
+								<i class="layui-icon"></i>apiclient_key.pem
+							</button>
+
+							<div id="wechatkey" class="file-iteme" {if condition="$one['wechat_apiclient_key'] eq ''"}style="display:none;"{/if}>
+							<div class="handle"><i class="layui-icon layui-icon-delete" id="wechatkeydel"></i></div>
+							<img src="__STATIC__/images/admin/cert.png" width="120" height="auto" />
+							<div class="info"></div>
+						</div>
+
+					</div>
+
+					</div>
+				</div>
+
+				  
+				   <div class="layui-form-item">
+				  <div class="layui-card-header">支付宝商户配置</div>
+				  </div>
+				  
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">APPID</label>
+				    <div class="layui-input-inline">
+				      <input type="text" name="alipay_appid" value="{$one['alipay_appid']}" placeholder="" autocomplete="off" class="layui-input">
+				    </div>
+					  <label class="layui-form-label">开启</label>
+					  <div class="layui-input-inline">
+						  <input type="checkbox" name="use_alipay" value="1" title="支付宝刷卡支付" lay-skin="primary" {if condition="$one['use_alipay'] eq '1'"} checked {/if} >
+					  </div>
+
+				  </div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">支付宝公钥</label>
+					<div class="layui-input-inline"  style="width:450px;">
+						<textarea style="width:450px;" name="alipay_public_key"  placeholder="请输入支付宝开发平台获取的支付宝公钥" autocomplete="off" class="layui-textarea">{$one['alipay_public_key']}</textarea>
+					</div>
+				</div>
+
+				  <div class="layui-form-item">
+				    <label class="layui-form-label">商户私钥</label>
+				    <div class="layui-input-inline"  style="width:450px;">
+				      <textarea style="width:450px;" name="alipay_private_key" placeholder="开放平台密钥工具生成的应用私钥即商户私钥" autocomplete="off" class="layui-textarea">{$one['alipay_private_key']}</textarea>
+				    </div>
+				  </div>
+
+
+
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 140px;">支付宝个人收款二维码</label>
+					<label class="layui-form-label" style="width: 350px;color:#ff6a08;">
+						没有申请支付宝商家，在移动端使用个人收款二维码收款
+					</label>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label"></label>
+					<div class="layui-col-md12">
+
+						<div class="layui-input-inline uploader-list">
+							<button type="button" class="layui-btn layui-btn-danger" id="alipayloader"><i class="layui-icon"></i>上传图片</button>
+
+							<div id="alipaycode" class="file-iteme" {if condition="$one['alipay_pay_qrcode'] eq ''"}style="display:none;"{/if}>
+								<div class="handle"><i class="layui-icon layui-icon-delete" id="alipaydel"></i></div>
+								<img src="{$one['alipay_pay_qrcode']}" width="120" height="auto" id="preview_alipay"/>
+								<div class="info">{$vo['photo_name']}</div>
+							</div>
+
+
+							<div class="layui-inline layui-word-aux">
+								图片大小限制 {php}echo $image_size/1024; {/php}M
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<input name="wechat_pay_qrcode" id="wechat_pay_qrcode" type="hidden" value="{$one['wechat_pay_qrcode']}"/>
+				<input name="alipay_pay_qrcode" id="alipay_pay_qrcode" type="hidden" value="{$one['alipay_pay_qrcode']}"/>
+				<input name="wechat_apiclient_cert" id="wechat_apiclient_cert" type="hidden" value="{$one['wechat_apiclient_cert']}"/>
+				<input name="wechat_apiclient_key" id="wechat_apiclient_key" type="hidden" value="{$one['wechat_apiclient_key']}"/>
+				<input name="logo" id="logo" type="hidden" value="{$one['logo']}"/>
+				<input name="id" type="hidden" value="{$one['id']}"/>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="branch-save">
+                <i class="layui-icon layui-icon-ok"></i>
+                提交
+            </button>
+            <button type="reset" class="pear-btn pear-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
+<script src="__STATIC__/lib/layui/layui.js"></script>
+<script src="__PEAR__/component/pear/pear.js"></script>
+<script>
+	//绑定图片上传后小图片事件
+	function bindImgHandler($,layer){
+		//图片上传后删除按钮
+		$(document).on("mouseenter mouseleave", ".file-iteme", function(event){
+			if(event.type === "mouseenter"){
+				//鼠标悬浮
+				$(this).children(".info").fadeIn("fast");
+				$(this).children(".handle").fadeIn("fast");
+				$(this).children(".default-icon").show();
+			}else if(event.type === "mouseleave") {
+				//鼠标离开
+				$(this).children(".info").hide();
+				$(this).children(".handle").hide();
+				var data=$(this).children(".default-icon").attr("data");
+				if(data==null||data!=1){
+					$(this).children(".default-icon").hide();
+				}
+			}
+		});
+
+		//图片上传后删除按钮点击事件
+		$(document).on("click", ".file-iteme .handle i.layui-icon", function(event){
+			event.stopPropagation();
+			//异步删除图片
+			var id=$(this).attr("id");
+			if(id=="wechatdel"){
+				$("#preview_wechat").attr("src","");
+				$("#wechat_pay_qrcode").val("");
+				$("#wechatpaycode").hide();
+			}if(id=="wechatcertdel"){
+				$("#wechat_apiclient_cert").val("");
+				$("#wechatcert").hide();
+			}if(id=="wechatkeydel"){
+				$("#wechat_apiclient_key").val("");
+				$("#wechatkey").hide();
+			}else if(id=="alipaydel"){
+				$("#preview_alipay").attr("src","");
+				$("#alipay_pay_qrcode").val("");
+				$("#alipaycode").hide();
+			}else if(id=="logodel"){
+				$("#preview_logo").attr("src","");
+				$("#logo").val("");
+				$("#shoplogo").hide();
+			}
+		});
+
+	}
+
+	//解绑事件
+	function unbindImgHandler($){
+		$(document).off("mouseenter mouseleave", ".file-iteme");
+
+		//图片上传后删除按钮点击事件
+		$(document).off("click", ".file-iteme .handle i.layui-icon");
+
+		//图片上传后删除按钮点击事件
+		$(document).off("click", ".file-iteme img");
+	}
+
+layui.use(['form','jquery','upload', 'element','layer'],function(){
+    let form = layui.form;
+    let $ = layui.jquery;
+	let upload = layui.upload;
+	let element = layui.element;
+	let layer = layui.layer;
+
+	var path="{:U('pos/branch','','')}";
+	var branch_no="{$one['branch_no']}";
+
+	//绑定事件
+	bindImgHandler($,layer);
+
+	//logo上传
+	upload.render({
+		elem: '#logoloader'
+		,url: path+'/upload' //Super控制器公共接口
+		,method: 'post'
+		,size: {$image_size} //限制文件大小，单位 KB
+		,done: function(res){
+			if(res.status==1){
+
+				//解绑事件
+				unbindImgHandler($);
+				//重新绑定事件
+				bindImgHandler($,layer);
+
+				$("#preview_logo").attr("src",res.path);
+				$("#logo").val(res.path);
+				$("#shoplogo").show();
+				layer.msg('上传成功');
+			}else{
+				layer.msg('上传失败，请重试');
+			}
+		}
+	});
+
+	//微信文件上传
+	upload.render({
+		elem: '#wechatloader'
+		,url: path+'/upload' //Super控制器公共接口
+		,method: 'post'
+		,size: {$image_size} //限制文件大小，单位 KB
+		,done: function(res){
+			if(res.status==1){
+
+				//解绑事件
+				unbindImgHandler($);
+				//重新绑定事件
+				bindImgHandler($,layer);
+
+				$("#preview_wechat").attr("src",res.path);
+				$("#wechat_pay_qrcode").val(res.path);
+				$("#wechatpaycode").show();
+				layer.msg('上传成功');
+			}else{
+				layer.msg('上传失败，请重试');
+			}
+		}
+	});
+
+	{if condition="$one['branch_no'] neq '' "}
+	//微信cert证书上传
+	upload.render({
+		elem: '#wechatcertloader'
+		,url: path+'/uploadCert/branch_no/'+branch_no //Super控制器公共接口
+		,method: 'post'
+		,size: {$image_size} //限制文件大小，单位 KB
+		,accept: 'file' //普通文件
+		,exts: 'pem' //只允许上传pem文件
+		,data:{"branch_no":branch_no}
+		,done: function(res){
+			if(res.status==1){
+
+				//解绑事件
+				unbindImgHandler($);
+				//重新绑定事件
+				bindImgHandler($,layer);
+
+				$("#wechat_apiclient_cert").val(res.path);
+				$("#wechatcert").show();
+				layer.msg('上传成功');
+			}else{
+				layer.msg('上传失败，请重试：'+res.msg);
+			}
+		}
+	});
+
+	upload.render({
+		elem: '#wechatkeyloader'
+		,url: path+'/uploadCert/branch_no/'+branch_no //Super控制器公共接口
+		,method: 'post'
+		,size: {$image_size} //限制文件大小，单位 KB
+		,accept: 'file' //普通文件
+		,exts: 'pem' //只允许上传pem文件
+		,data:{"branch_no":branch_no}
+		,done: function(res){
+			if(res.status==1){
+
+				//解绑事件
+				unbindImgHandler($);
+				//重新绑定事件
+				bindImgHandler($,layer);
+
+				$("#wechat_apiclient_key").val(res.path);
+				$("#wechatkey").show();
+				layer.msg('上传成功');
+			}else{
+				layer.msg('上传失败，请重试：'+res.msg);
+			}
+		}
+	});
+
+	{/if}
+
+	//支付宝文件上传
+	upload.render({
+		elem: '#alipayloader'
+		,url: path+'/upload' //Super控制器公共接口
+		,method: 'post'
+		,size: {$image_size} //限制文件大小，单位 KB
+		,done: function(res){
+			if(res.status==1){
+
+				//解绑事件
+				unbindImgHandler($);
+				//重新绑定事件
+				bindImgHandler($,layer);
+
+				$("#preview_alipay").attr("src",res.path);
+				$("#alipay_pay_qrcode").val(res.path);
+				$("#alipaycode").show();
+				layer.msg('上传成功');
+			}else{
+				layer.msg('上传失败，请重试');
+			}
+		}
+	});
+
+	{present name="one"}
+	var _url="/branchEdit";
+	{else /}
+	var _url="/branchAdd";	
+	{/present}
+    form.on('submit(branch-save)', function(data){
+        $.ajax({
+            url:path+_url,
+            data:JSON.stringify(data.field),
+            dataType:'json',
+            contentType:'application/json',
+            type:'post',
+            success:function(result){
+                if(result.code){
+                    layer.msg(result.msg,{icon:1,time:1000},function(){
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                        parent.layui.table.reload("branchlist-table");
+                    });
+                }else{
+                    layer.msg(result.msg,{icon:2,time:1000});
+                }
+            }
+        })
+        return false;
+    });
+})
+</script>
+<script>
+</script>
+</body>
+</html>
